@@ -20,11 +20,15 @@
                 <button v-on:click="changeMode('history')">Secret History server</button>
             </div>
 
+            <div>
+                <label for="perPage">Per page</label>
+                <input type="number" v-model="perPage" id="perPage" min="1">
+            </div>
+
             <div class="pagination">
                 <div id="prevPage" v-on:click="prevPage()"> < </div>
                 <div id="nbPage"> <span v-for="n in nbPage" v-on:click="goToPage(n-1)">{{n}}</span> </div>
                 <div id="nextPage" v-on:click="nextPage()"> > </div>
-
             </div>
 
             <table>
