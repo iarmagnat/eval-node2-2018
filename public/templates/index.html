@@ -5,10 +5,9 @@
         <title>EVAL</title>
     </head>
     <body>
-        <form id="form" class="" submit="event.preventDefault()">
+        <form id="form"  v-on:submit="putDatas($event)">
             <input type="password" v-model="pwd" type="text" name="changePwd">
             <button type="submit" value="Reset">Reset pwd</button>
-            {{ pwd }}
         </form>
 
         <div id="app">
@@ -18,6 +17,12 @@
                 <button v-on:click="changeMode('time')">Time server</button>
                 <button v-on:click="changeMode('secret')">Secret server</button>
                 <button v-on:click="changeMode('history')">Secret History server</button>
+            </div>
+
+            <div class="pagination">
+                <div id="prevPage" v-on:click="prevPage()"> < </div>
+                <div id="nbPage"> <span v-for="n in nbPage" v-on:click="goToPage(n-1)">{{n}}</span> </div>
+                <div id="nextPage" v-on:click="nextPage()"> > </div>
             </div>
 
             <table>
@@ -38,6 +43,7 @@
                 </tbody>
 
             </table>
+
         </div>
 
     </body>
@@ -46,3 +52,23 @@
     <script src="/client/lib/fr.js"></script>
     <script src="/client/js/common.js"></script>
 </html>
+
+<style media="screen">
+    #app table{
+        height: 150px;
+    }
+    .pagination div {
+        display: inline;
+    }
+    .pagination span{
+        padding: 5px;
+        cursor:pointer;
+        color: blue;
+    }
+    .pagination span.active{
+        color: grey;
+    }
+    #nextPage, #prevPage{
+        cursor: pointer;
+    }
+</style>

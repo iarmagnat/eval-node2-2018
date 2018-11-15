@@ -19,7 +19,8 @@ const vm = new Vue({
         pwd: ""
     },
     methods: {
-        putDatas: function () {
+        putDatas: function (event) {
+            event.preventDefault()
             return fetch('http://localhost:4001/secret', {
                 method: "PUT",
                 mode: "cors",
@@ -30,9 +31,6 @@ const vm = new Vue({
             }).then(res => res.json())
         }
     },
-    created: function () {
-        console.log(this.pwd)
-    }
 })
 
 let fetchTimeout
@@ -65,7 +63,8 @@ const app = new Vue({
         serverData: [],
         reversed: false,
         page: 0,
-        perPage: 25,
+        perPage: 5,
+
     },
     computed: {
         displayData() {
@@ -76,6 +75,9 @@ const app = new Vue({
                 all = this.serverData
             }
             return all.slice(this.page * this.perPage, (this.page + 1) * this.perPage)
+        },
+        nbPage() {
+            return parseInt((this.serverData.length - 1) / this.perPage) + 1
         },
     },
     methods: {
@@ -92,6 +94,20 @@ const app = new Vue({
         timeDelta(time) {
             return moment().diff(time, "seconds")
         },
+        goToPage(page) {
+            this.page = page
+        },
+        nextPage() {
+            console.log(this.page, this.nbPage)
+            if (this.page < this.nbPage - 1) {
+                this.page = this.page + 1
+            }
+        },
+        prevPage() {
+            if (this.page > 0) {
+                this.page = this.page - 1
+            }
+        }
     },
     created() {
         fetchTimeout = setInterval(function () {
@@ -107,8 +123,7 @@ const app = new Vue({
                 })
                 .catch(e => {
                         console.error(e)
-                    console.log("huitre")
-                    app.pushToPile(["DOWN", "DOWN", "DOWN", moment()])
+                        app.pushToPile(["DOWN", "DOWN", "DOWN", moment()])
                     }
                 )
         }, 1000)
