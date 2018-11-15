@@ -16,7 +16,8 @@ function getData(url) {
 const vm = new Vue({
     el: '#form',
     data: {
-        pwd: ""
+        pwd: "",
+
     },
     methods: {
         putDatas: function (event) {
