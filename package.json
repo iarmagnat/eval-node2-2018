@@ -7,7 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemon": "node_modules/.bin/nodemon index.js",
     "less": "node_modules/.bin/lesc public/less/style.less public/css/style.css",
-    "start": "npm run nodemon"
+    "start": "npm run nodemon",
+    "time-server": "node_modules/.bin/nodemon time-server.js",
+    "secret-server": "node_modules/.bin/nodemon secret-server.js",
+    "sechisrv": "node_modules/.bin/nodemon sechisrv.js"
+
   },
   "author": "",
   "license": "ISC",
