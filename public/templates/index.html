@@ -12,7 +12,9 @@
         </form>
 
         <div id="app">
-
+            <label for="reversed" v-if="reversed">Afficher dans l'ordre chronologique</label>
+            <label for="reversed" v-else>Afficher dans l'ordre antéchronologique</label>
+            <input id="reversed" type="checkbox" v-model="reversed" style="display:none" >
             <div>
                 <button v-on:click="changeMode('all')">All</button>
                 <button v-on:click="changeMode('time')">Time server</button>
@@ -58,4 +60,3 @@
     <script src="/client/lib/fr.js"></script>
     <script src="/client/js/common.js"></script>
 </html>
-
