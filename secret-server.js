@@ -32,7 +32,6 @@ app.get('/secret', function (req, res) {
 })
 
 app.put('/secret', function (req, res) {
-    console.log(req.body.secret)
     if (req.body.secret) {
         const secret = req.body.secret
         fsWrapper.write("secret.txt", crypt.encrypt(secret))

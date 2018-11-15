@@ -17,7 +17,4 @@ const vm = new Vue({
             }).then(res => res.json())
         }
     },
-    created: function(){
-        console.log(this.pwd)
-    }
 })
