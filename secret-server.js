@@ -12,7 +12,15 @@ app.get('/secret', function (req, res) {
     fsWrapper.read("secret.txt")
         .then(content => crypt.decrypt(content))
         .then(function (value) {
-            res.send(value)
+
+            if (req.accepts("html")) {
+                res.send(value)
+            } else if (req.accepts("json")) {
+                res.send(JSON.stringify({
+                    secret: value
+                }))
+            }
+
         })
 })
 
