@@ -4,13 +4,12 @@ const fsWrapper = require('./fs_wrapper')
 const app = express()
 const port = 4002
 
-app.get("/all", (req, res) => {
-    fsWrapper.read("secret-history.json")
-        .then(content => JSON.parse(content))
-        .then(function (value) {
-            res.send(JSON.stringify(value))
-        })
-})
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 app.get("/:amount", (req, res) => {
     const amount = parseInt(req.params.amount)
