@@ -1,0 +1,14 @@
+.pagination div {
+    display: inline;
+}
+.pagination span{
+    padding: 5px;
+    cursor:pointer;
+    color: blue;
+}
+.pagination span.active{
+    color: grey;
+}
+#nextPage, #prevPage{
+    cursor: pointer;
+}

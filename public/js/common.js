@@ -63,7 +63,7 @@ const app = new Vue({
         serverData: [],
         reversed: false,
         page: 0,
-        perPage: 5,
+        perPage: 10,
 
     },
     computed: {

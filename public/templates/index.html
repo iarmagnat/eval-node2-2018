@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>EVAL</title>
+        <link rel="stylesheet" href="/client/css/main.css">
     </head>
     <body>
         <form id="form"  v-on:submit="putDatas($event)">
@@ -23,6 +24,7 @@
                 <div id="prevPage" v-on:click="prevPage()"> < </div>
                 <div id="nbPage"> <span v-for="n in nbPage" v-on:click="goToPage(n-1)">{{n}}</span> </div>
                 <div id="nextPage" v-on:click="nextPage()"> > </div>
+
             </div>
 
             <table>
@@ -53,22 +55,3 @@
     <script src="/client/js/common.js"></script>
 </html>
 
-<style media="screen">
-    #app table{
-        height: 150px;
-    }
-    .pagination div {
-        display: inline;
-    }
-    .pagination span{
-        padding: 5px;
-        cursor:pointer;
-        color: blue;
-    }
-    .pagination span.active{
-        color: grey;
-    }
-    #nextPage, #prevPage{
-        cursor: pointer;
-    }
-</style>
