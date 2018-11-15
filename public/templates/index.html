@@ -13,15 +13,27 @@
 
         <div id="app">
 
+            <div>
+                <button v-on:click="changeMode('all')">All</button>
+                <button v-on:click="changeMode('time')">Time server</button>
+                <button v-on:click="changeMode('secret')">Secret server</button>
+                <button v-on:click="changeMode('history')">Secret History server</button>
+            </div>
+
             <table>
                 <thead>
                 <tr>
-                    <th>{{ servers[mode].name }}</th>
+                    <th></th>
+                    <th v-if="mode !== 'all'">{{ servers[mode].name }}</th>
+                    <th v-else v-for="server in servers">{{ server.name }}</th>
                 </tr>
                 </thead>
+
                 <tbody>
                     <tr v-for="info in displayData">
-                        <td>{{ info[servers[mode].pos] }}</td>
+                        <td>{{ timeDelta(info[3]) }}s ago</td>
+                        <td v-if="mode !== 'all'">{{ info[servers[mode].pos] }}</td>
+                        <td v-else v-for="server in servers">{{ info[server.pos] }}</td>
                     </tr>
                 </tbody>
 

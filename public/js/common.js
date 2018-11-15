@@ -7,6 +7,10 @@ function getData(url) {
         }
     })
         .then(res => res.json())
+        .catch(e => {
+            console.error(e)
+            return "DOWN"
+        })
 }
 
 const vm = new Vue({
@@ -57,7 +61,7 @@ const app = new Vue({
             },
         },
         pileSize: 100,
-        mode: "secret",
+        mode: "all",
         serverData: [],
         reversed: false,
         page: 0,
@@ -82,6 +86,12 @@ const app = new Vue({
                 this.serverData.pop()
             }
         },
+        changeMode(newMode) {
+            this.mode = newMode
+        },
+        timeDelta(time) {
+            return moment().diff(time, "seconds")
+        },
     },
     created() {
         fetchTimeout = setInterval(function () {
@@ -97,7 +107,8 @@ const app = new Vue({
                 })
                 .catch(e => {
                         console.error(e)
-                        app.pushToPile(["DOWN", "DOWN", "DOWN", moment()])
+                    console.log("huitre")
+                    app.pushToPile(["DOWN", "DOWN", "DOWN", moment()])
                     }
                 )
         }, 1000)
