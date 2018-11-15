@@ -12,7 +12,8 @@ function getData(url) {
 const vm = new Vue({
     el: '#form',
     data: {
-        pwd: ""
+        pwd: "",
+
     },
     methods: {
         putDatas: function () {
@@ -99,4 +100,5 @@ const app = new Vue({
                 )
         }, 1000)
     }
+
 })

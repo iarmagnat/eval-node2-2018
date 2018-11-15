@@ -27,7 +27,6 @@ app.get('/secret', function (req, res) {
                     secret: value
                 }))
             }
-
         })
 })
 
