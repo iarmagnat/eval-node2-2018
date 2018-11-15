@@ -1,51 +1,37 @@
 const express = require('express')
 const fs = require("fs-extra")
-const bodyParser = require("body-parser");
+const bodyParser = require("body-parser")
+const crypt = require("./crypt")
+const fsWrapper = require("./fs_wrapper")
 const app = express()
 const port = 4001
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
-const moment = require('moment')
-
-const tpl = "./public/templates/"
 app.get('/secret', function (req, res) {
-  readSecretPromise().then( function(value) {
-    console.log(value)
-    res.send(value)
-  })
+    fsWrapper.read("secret.txt")
+        .then(content => crypt.decrypt(content))
+        .then(function (value) {
+            res.send(value)
+        })
 })
 
 app.put('/secret', function (req, res) {
-  let secret = req.body.secret
-  console.log(String(secret))
-  writeSecretPromise(String(secret))
+    if (req.body.secret) {
+        const secret = req.body.secret
+        fsWrapper.write("secret.txt", crypt.encrypt(secret))
+            .then(status => {
+                res.send(JSON.stringify(status))
+            })
+            .catch(err => {
+                console.error(err)
+                res.sendStatus(500)
+            })
+    } else {
+        res.sendStatus(400)
+    }
 })
 
 app.listen(port, function () {
-  console.log(`Example app listening on port ${port}!`)
+    console.log(`Secret server listening on port ${port}!`)
 })
-
-
-function writeSecretPromise(secret){
-  return new Promise(function(resolve, reject) {
-    fs.writeFile("secret.txt", secret.split("").reverse().join(""), "utf8", function(err){
-      if( err ){
-        reject( new Error( "error in fs.writeFile") )
-      }
-    })
-  })
-}
-
-function readSecretPromise(){
-  return new Promise(function(resolve, reject) {
-    fs.readFile("secret.txt", "utf8", function(err, contents){
-      if( err && err.code !== "ENOENT" && err.code  ){
-        reject( new Error( "error in fs.readFile" ) )
-      } else {
-        let resp = contents.split("").reverse().join("")
-        resolve(resp)
-      }
-    })
-  })
-}

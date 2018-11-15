@@ -10,4 +10,4 @@ app.get("/", (req, res) => {
         })
 })
 
-app.listen(port, () => console.log(`Time server listening on port ${port}!`))
+app.listen(port, () => console.log(`Secret server history listening on port ${port}!`))
