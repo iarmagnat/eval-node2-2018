@@ -5,13 +5,11 @@
         <title>EVAL</title>
     </head>
     <body>
-        <form class="">
-            <input type="text" name="changePwd">
+        <form id="form" class="" submit="event.preventDefault()">
+            <input type="password" v-model="pwd" type="text" name="changePwd">
             <button type="submit" value="Reset">Reset pwd</button>
+            {{ pwd }}
         </form>
-        <table>
-
-        </table>
 
     </body>
     <script src="/client/lib/vue.min.js"></script>
