@@ -16,7 +16,8 @@ const vm = new Vue({
 
     },
     methods: {
-        putDatas: function () {
+        putDatas: function (event) {
+            event.preventDefault()
             return fetch('http://localhost:4001/secret', {
                 method: "PUT",
                 mode: "cors",
@@ -59,7 +60,8 @@ const app = new Vue({
         serverData: [],
         reversed: false,
         page: 0,
-        perPage: 25,
+        perPage: 5,
+
     },
     computed: {
         displayData() {
@@ -71,6 +73,9 @@ const app = new Vue({
             }
             return all.slice(this.page * this.perPage, (this.page + 1) * this.perPage)
         },
+        nbPage(){
+            return parseInt((this.serverData.length-1)/this.perPage)+1
+        }
     },
     methods: {
         pushToPile(newLine) {
@@ -80,6 +85,20 @@ const app = new Vue({
                 this.serverData.pop()
             }
         },
+        goToPage(page){
+            this.page= page
+        },
+        nextPage(){
+            console.log(this.page, this.nbPage)
+            if(this.page < this.nbPage){
+                this.page = this.page+1;
+            }
+        },
+        prevPage(){
+            if(this.page>0){
+                this.page = this.page -1;
+            }
+        }
     },
     created() {
         fetchTimeout = setInterval(function () {
