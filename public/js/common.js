@@ -90,7 +90,7 @@ const app = new Vue({
         },
         nextPage(){
             console.log(this.page, this.nbPage)
-            if(this.page < this.nbPage){
+            if(this.page < this.nbPage-1){
                 this.page = this.page+1;
             }
         },
